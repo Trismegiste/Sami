@@ -13,7 +13,7 @@ namespace Sami\Reflection;
 
 use Sami\Project;
 
-class ClassReflection extends OoReflection
+class OoReflection extends Reflection
 {
     protected $project;
     protected $hash;
@@ -25,7 +25,6 @@ class ClassReflection extends OoReflection
     protected $constants = array();
     protected $parent;
     protected $file;
-    protected $interface = false;
     protected $projectClass = true;
     protected $aliases = array();
     protected $errors = array();
@@ -407,4 +406,5 @@ class ClassReflection extends OoReflection
 
         return $class;
     }
+
 }
