@@ -13,7 +13,10 @@ namespace Sami\Reflection;
 
 use Sami\Project;
 
-class OoReflection extends Reflection
+/**
+ * Common behavior for Class, Interface and Trait
+ */
+abstract class OoItemReflection extends Reflection
 {
     protected $project;
     protected $hash;
@@ -38,6 +41,8 @@ class OoReflection extends Reflection
     {
         return $this;
     }
+
+    abstract public function getDescriptor();
 
     public function isProjectClass()
     {
@@ -305,10 +310,7 @@ class OoReflection extends Reflection
         $this->interface = (Boolean) $boolean;
     }
 
-    public function isInterface()
-    {
-        return $this->interface;
-    }
+    abstract public function isInterface();
 
     public function isException()
     {
