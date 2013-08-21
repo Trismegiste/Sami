@@ -12,7 +12,7 @@
 namespace Sami;
 
 use Sami\Store\StoreInterface;
-use Sami\Reflection\ClassReflection;
+use Sami\Reflection\OoItemReflection;
 use Sami\Reflection\LazyClassReflection;
 use Sami\Parser\Parser;
 use Sami\Renderer\Renderer;
@@ -225,7 +225,7 @@ class Project
         return $this->namespaceInterfaces[$namespace];
     }
 
-    public function addClass(ClassReflection $class)
+    public function addClass(OoItemReflection $class)
     {
         $this->classes[$class->getName()] = $class;
         $class->setProject($this);
@@ -235,7 +235,7 @@ class Project
         }
     }
 
-    public function removeClass(ClassReflection $class)
+    public function removeClass(OoItemReflection $class)
     {
         unset($this->classes[$class->getName()]);
         unset($this->interfaces[$class->getName()]);
@@ -350,7 +350,7 @@ class Project
         return in_array(strtolower($hint), array('', 'scalar', 'object', 'boolean', 'bool', 'int', 'integer', 'array', 'string', 'mixed', 'void', 'null'));
     }
 
-    protected function updateCache(ClassReflection $class)
+    protected function updateCache(OoItemReflection $class)
     {
         $name = $class->getName();
 

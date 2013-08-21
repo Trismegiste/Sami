@@ -12,6 +12,8 @@
 namespace Sami\Parser;
 
 use Sami\Reflection\ClassReflection;
+use Sami\Reflection\OoItemReflection;
+use Sami\Reflection\InterfaceReflection;
 use Sami\Reflection\MethodReflection;
 use Sami\Reflection\ParameterReflection;
 use Sami\Reflection\PropertyReflection;
@@ -64,9 +66,10 @@ class NodeVisitor extends \PHPParser_NodeVisitorAbstract
 
     protected function addInterface(\PHPParser_Node_Stmt_Interface $node)
     {
-        $class = $this->addClassOrInterface($node);
+        $class = new InterfaceReflection((string) $node->namespacedName, $node->getLine());
 
-        $class->setInterface(true);
+        $class = $this->initClassOrInterface($node, $class);
+
         foreach ($node->extends as $interface) {
             $class->addInterface((string) $interface);
         }
@@ -74,7 +77,9 @@ class NodeVisitor extends \PHPParser_NodeVisitorAbstract
 
     protected function addClass(\PHPParser_Node_Stmt_Class $node)
     {
-        $class = $this->addClassOrInterface($node);
+        $class = new ClassReflection((string) $node->namespacedName, $node->getLine());
+
+        $class = $this->initClassOrInterface($node, $class);
 
         foreach ($node->implements as $interface) {
             $class->addInterface((string) $interface);
@@ -85,9 +90,8 @@ class NodeVisitor extends \PHPParser_NodeVisitorAbstract
         }
     }
 
-    protected function addClassOrInterface($node)
+    protected function initClassOrInterface(\PHPParser_Node_Stmt $node, OoItemReflection $class)
     {
-        $class = new ClassReflection((string) $node->namespacedName, $node->getLine());
         $class->setModifiers($node->type);
         $class->setNamespace($this->context->getNamespace());
         $class->setAliases($this->context->getAliases());

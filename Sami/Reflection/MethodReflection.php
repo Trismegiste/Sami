@@ -77,7 +77,7 @@ class MethodReflection extends Reflection
         return $this->class;
     }
 
-    public function setClass(ClassReflection $class)
+    public function setClass(OoItemReflection $class)
     {
         $this->class = $class;
     }

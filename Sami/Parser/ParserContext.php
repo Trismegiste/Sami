@@ -11,7 +11,7 @@
 
 namespace Sami\Parser;
 
-use Sami\Reflection\ClassReflection;
+use Sami\Reflection\OoItemReflection;
 use Sami\Parser\Filter\FilterInterface;
 use Sami\Parser\DocBlockParser;
 
@@ -104,7 +104,7 @@ class ParserContext
         return $this->errors;
     }
 
-    public function enterClass(ClassReflection $class)
+    public function enterClass(OoItemReflection $class)
     {
         $this->class = $class;
     }

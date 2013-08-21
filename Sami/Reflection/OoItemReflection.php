@@ -305,11 +305,6 @@ abstract class OoItemReflection extends Reflection
         return array_merge(array($parent), $parent->getParent(true));
     }
 
-    public function setInterface($boolean)
-    {
-        $this->interface = (Boolean) $boolean;
-    }
-
     abstract public function isInterface();
 
     public function isException()
@@ -358,7 +353,6 @@ abstract class OoItemReflection extends Reflection
             'hash'         => $this->hash,
             'parent'       => $this->parent,
             'modifiers'    => $this->modifiers,
-            'is_interface' => $this->interface,
             'aliases'      => $this->aliases,
             'errors'       => $this->errors,
             'interfaces'   => $this->interfaces,
@@ -366,47 +360,6 @@ abstract class OoItemReflection extends Reflection
             'methods'      => array_map(function ($method) { return $method->toArray(); }, $this->methods),
             'constants'    => array_map(function ($constant) { return $constant->toArray(); }, $this->constants),
         );
-    }
-
-    static public function fromArray(Project $project, $array)
-    {
-        $class = new self($array['name'], $array['line']);
-        $class->shortDesc  = $array['short_desc'];
-        $class->longDesc   = $array['long_desc'];
-        $class->hint       = $array['hint'];
-        $class->tags       = $array['tags'];
-        $class->namespace  = $array['namespace'];
-        $class->hash       = $array['hash'];
-        $class->file       = $array['file'];
-        $class->modifiers  = $array['modifiers'];
-        $class->interface  = $array['is_interface'];
-        $class->aliases    = $array['aliases'];
-        $class->errors     = $array['errors'];
-        $class->parent     = $array['parent'];
-        $class->interfaces = $array['interfaces'];
-        $class->constants  = $array['constants'];
-
-        $class->setProject($project);
-
-        foreach ($array['methods'] as $method) {
-            $method = MethodReflection::fromArray($project, $method);
-            $method->setClass($class);
-            $class->addMethod($method);
-        }
-
-        foreach ($array['properties'] as $property) {
-            $property = PropertyReflection::fromArray($project, $property);
-            $property->setClass($class);
-            $class->addProperty($property);
-        }
-
-        foreach ($array['constants'] as $constant) {
-            $constant = ConstantReflection::fromArray($project, $constant);
-            $constant->setClass($class);
-            $class->addConstant($constant);
-        }
-
-        return $class;
     }
 
 }

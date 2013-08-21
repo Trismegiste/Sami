@@ -11,13 +11,13 @@
 
 namespace Sami\Parser\Filter;
 
-use Sami\Reflection\ClassReflection;
+use Sami\Reflection\OoItemReflection;
 use Sami\Reflection\MethodReflection;
 use Sami\Reflection\PropertyReflection;
 
 class TrueFilter implements FilterInterface
 {
-    public function acceptClass(ClassReflection $class)
+    public function acceptClass(OoItemReflection $class)
     {
         return true;
     }

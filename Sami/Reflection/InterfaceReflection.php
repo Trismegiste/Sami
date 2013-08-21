@@ -11,22 +11,20 @@
 
 namespace Sami\Reflection;
 
-use Sami\Project;
-
 /**
- * Reflection for class
+ * Reflection for interface
  */
-class ClassReflection extends OoItemReflection
+class InterfaceReflection extends OoItemReflection
 {
 
     public function getDescriptor()
     {
-        return 'class';
+        return 'interface';
     }
 
     public function isInterface()
     {
-        return false;
+        return true;
     }
 
     static public function fromArray(Project $project, $array)

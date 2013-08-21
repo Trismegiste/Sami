@@ -11,12 +11,12 @@
 
 namespace Sami\Parser\Filter;
 
-use Sami\Reflection\ClassReflection;
+use Sami\Reflection\OoItemReflection;
 use Sami\Reflection\MethodReflection;
 
 class SymfonyFilter extends DefaultFilter
 {
-    public function acceptClass(ClassReflection $class)
+    public function acceptClass(OoItemReflection $class)
     {
         return $class->getDocBlock()->getTag('api');
     }
